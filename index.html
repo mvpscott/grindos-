@@ -30,7 +30,7 @@ input,textarea{font-family:'Sora','Segoe UI',sans-serif;outline:none;border:none
 const { useState, useEffect, useRef } = React;
 
 // ── CONFIG — replace this with your real Stripe Payment Link ──
-const STRIPE_URL = "https://buy.stripe.com/8x2eVd9br9xR3dddkM2oE01";
+const STRIPE_URL = "https://buy.stripe.com/YOUR_PAYMENT_LINK_HERE";
 const MODEL = "claude-sonnet-4-20250514";
 const FREE_LIMIT = 3;
 
@@ -202,7 +202,7 @@ function Setup({onPlan}){
   async function gen(){
     if(!goal.trim())return; setLoading(true); setErr("");
     try{
-      const res = await fetch("https://api.anthropic.com/v1/messages",{
+      const res = await fetch("https://raspy-frog-7940.longsrefur1.workers.dev",{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
           model:MODEL,max_tokens:1000,
@@ -308,7 +308,7 @@ function Timer({plan,goal,onDone}){
   async function getNudge(){
     setNudgeLoad(true);setNudge("");
     try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{
+      const res=await fetch("https://raspy-frog-7940.longsrefur1.workers.dev",{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:MODEL,max_tokens:1000,system:"You are GrindOS, an intense productivity coach. 2 sentences max. Direct, fierce, motivating.",messages:[{role:"user",content:`Goal: ${goal}. Task: ${session.task}. ${secs}s left. Fire me up.`}]})
       });
@@ -371,7 +371,7 @@ function Complete({plan,goal,onDone}){
   async function getInsight(){
     if(!refl.trim())return; setLoading(true);
     try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{
+      const res=await fetch("https://raspy-frog-7940.longsrefur1.workers.dev",{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:MODEL,max_tokens:1000,system:"You are GrindOS AI. 2-3 sentences. Celebrate the win, spot a pattern, give one sharp improvement tip.",messages:[{role:"user",content:`Goal: ${goal}. Reflection: ${refl}`}]})
       });
